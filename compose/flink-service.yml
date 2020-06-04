@@ -19,7 +19,7 @@
 version: "2.2"
 services:
   flink:
-    image: flink
+    image: flink:latest
     environment:
       - |
         FLINK_PROPERTIES=

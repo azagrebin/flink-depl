@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: jobmanager
-        image: flink
+        image: flink:latest
         workingDir: /opt/flink
         args: ["jobmanager"]
         ports:
@@ -58,10 +58,5 @@ spec:
           runAsUser: 9999  # refers to user _flink_ from official flink image, change if necessary
       volumes:
       - name: flink-config-volume
-        configMap:
-          name: flink-config
-          items:
-          - key: flink-conf.yaml
-            path: flink-conf.yaml
-          - key: log4j.properties
-            path: log4j.properties
+        hostPath:
+          path: /flink-depl/conf

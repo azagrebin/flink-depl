@@ -28,8 +28,7 @@ docker network create -d overlay flink-job
 # Create the jobmanager service
 docker service create --name flink-job-jobmanager \
   --env FLINK_PROPERTIES="${FLINK_PROPERTIES}" \
-  --env USER_ARTIFACTS=/job-artifacts \
-  --mount type=bind,source="$(pwd)/../test-job/target",target=/job-artifacts \
+  --mount type=bind,source="$(pwd)/../test-job/target",target=/opt/flink/usrlib \
   -p 8081:8081 \
   --network flink-job \
   flink standalone-job --job-classname org.apache.flink.StreamingJob
@@ -38,7 +37,6 @@ docker service create --name flink-job-jobmanager \
 docker service create --name flink-job-taskmanager \
   --replicas 2 \
   --env FLINK_PROPERTIES="${FLINK_PROPERTIES}" \
-  --env USER_ARTIFACTS=/job-artifacts \
-  --mount type=bind,source="$(pwd)/../test-job/target",target=/job-artifacts \
+  --mount type=bind,source="$(pwd)/../test-job/target",target=/opt/flink/usrlib \
   --network flink-job \
   flink taskmanager
